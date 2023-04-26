@@ -1,11 +1,10 @@
-DROP TABLE IF EXISTS question_follows;
-DROP TABLE IF EXISTS question_likes;
-DROP TABLE IF EXISTS replies;
-DROP TABLE IF EXISTS questions;
-DROP TABLE IF EXISTS users;
-
 PRAGMA foreign_keys = ON;
 
+DROP TABLE IF EXISTS replies;
+DROP TABLE IF EXISTS question_follows;
+DROP TABLE IF EXISTS question_likes;
+DROP TABLE IF EXISTS questions;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     id INTEGER PRIMARY KEY,
@@ -19,8 +18,10 @@ CREATE TABLE questions (
     title TEXT NOT NULL,
     body TEXT NOT NULL,
     associated_author_id INTEGER NOT NULL,
+
     FOREIGN KEY (associated_author_id) REFERENCES users(id)
 );
+
 
 
 CREATE TABLE question_follows (
@@ -44,7 +45,7 @@ CREATE TABLE replies (
     FOREIGN KEY (question_id) REFERENCES questions(id),
     FOREIGN KEY (previous_reply_id) REFERENCES replies(id),
     FOREIGN KEY (associated_author_id) REFERENCES users(id)
-)
+);
 
 
 CREATE TABLE question_likes (
@@ -78,13 +79,13 @@ INSERT INTO
     replies (question_id, previous_reply_id, associated_author_id, body)
 VALUES 
     ((SELECT id FROM questions WHERE title = 'how do I code this'), NULL, 
-    (SELECT id FROM users WHERE fname = 'Shanna' AND lname = 'Le'), "I don't know either. Ask someone else.")
+    (SELECT id FROM users WHERE fname = 'Shanna' AND lname = 'Le'), "I don't know either. Ask someone else.");
 
 INSERT INTO 
     question_likes (question_id, user_id)
 VALUES 
     ((SELECT id FROM users WHERE fname = 'Shanna' AND lname = 'Le'),
-    (SELECT id FROM questions WHERE title = 'how do I code this'))
+    (SELECT id FROM questions WHERE title = 'how do I code this'));
 
 
     

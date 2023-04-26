@@ -1,0 +1,3 @@
+class QuestionFollows < ModelBase
+
+end

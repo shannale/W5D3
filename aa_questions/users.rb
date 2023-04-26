@@ -1,0 +1,3 @@
+class Users < ModelBase
+
+end

@@ -1,0 +1,3 @@
+class Replies < ModelBase
+
+end
